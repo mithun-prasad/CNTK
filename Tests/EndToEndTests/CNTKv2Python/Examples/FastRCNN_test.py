@@ -44,7 +44,9 @@ def test_fastrcnnpy_grocery_training(device_id):
     cfg["CNTK"].DEBUG_OUTPUT = False
     cfg["CNTK"].MAKE_MODE = False
     cfg["CNTK"].FAST_MODE = False
-    cfg["CNTK"].MAX_EPOCHS = 2
+    cfg["CNTK"].MAX_EPOCHS = 4
+    cfg.IMAGE_WIDTH = 400
+    cfg.IMAGE_HEIGHT = 400
     cfg.NUM_ROI_PROPOSALS = 200
     cfg.USE_GPU_NMS = True
     cfg.VISUALIZE_RESULTS = False

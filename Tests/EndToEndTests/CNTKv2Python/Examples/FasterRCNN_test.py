@@ -43,7 +43,12 @@ def run_fasterrcnn_grocery_training(device_id, e2e):
     cfg["CNTK"].FORCE_DETERMINISTIC = True
     cfg["CNTK"].DEBUG_OUTPUT = False
     cfg["CNTK"].MAKE_MODE = False
-    cfg["CNTK"].FAST_MODE = True
+    cfg["CNTK"].FAST_MODE = False
+    cfg.CNTK.E2E_MAX_EPOCHS = 3
+    cfg.CNTK.RPN_EPOCHS = 2
+    cfg.CNTK.FRCN_EPOCHS = 2
+    cfg.IMAGE_WIDTH = 400
+    cfg.IMAGE_HEIGHT = 400
     cfg["CNTK"].TRAIN_E2E = e2e
     cfg.USE_GPU_NMS = True
     cfg.VISUALIZE_RESULTS = False
@@ -64,6 +69,7 @@ def run_fasterrcnn_grocery_training(device_id, e2e):
     trained_model = train_faster_rcnn(cfg)
     eval_results = compute_test_set_aps(trained_model, cfg)
     meanAP = np.nanmean(list(eval_results.values()))
+    print('meanAP={}'.format(meanAP))
     assert meanAP > 0.01
     return trained_model, meanAP, cfg
 

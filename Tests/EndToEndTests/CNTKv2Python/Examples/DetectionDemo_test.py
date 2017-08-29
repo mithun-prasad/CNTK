@@ -40,7 +40,12 @@ def test_detection_demo(device_id):
     cfg["CNTK"].FORCE_DETERMINISTIC = True
     cfg["CNTK"].DEBUG_OUTPUT = False
     cfg["CNTK"].MAKE_MODE = False
-    cfg["CNTK"].FAST_MODE = True
+    cfg["CNTK"].FAST_MODE = False
+    cfg.CNTK.E2E_MAX_EPOCHS = 3
+    cfg.CNTK.RPN_EPOCHS = 2
+    cfg.CNTK.FRCN_EPOCHS = 2
+    cfg.IMAGE_WIDTH = 400
+    cfg.IMAGE_HEIGHT = 400
     cfg["CNTK"].TRAIN_E2E = True
     cfg.USE_GPU_NMS = False
     cfg.VISUALIZE_RESULTS = False
@@ -58,6 +63,7 @@ def test_detection_demo(device_id):
     eval_results = od.evaluate_test_set(eval_model, cfg)
 
     meanAP = np.nanmean(list(eval_results.values()))
+    print('meanAP={}'.format(meanAP))
     assert meanAP > 0.01
 
     # detect objects in single image
