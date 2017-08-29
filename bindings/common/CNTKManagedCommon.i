@@ -34,10 +34,6 @@
 // include common warning filters
 %include "CNTKWarnFilters.i"
 
-#ifndef _MSC_VER
-IGNORE_FUNCTION _wcsdup;
-#endif
-
 //use when the wrapped method returns an idiomatic type
 //for non-idiomatic types, such as the default collection wrappers use RENAME_AND_MAKE_PRIVATE below
 //and then write custom method in the language specific file
@@ -65,7 +61,6 @@ IGNORE_FUNCTION _wcsdup;
 #else
 #error "MAKE_GETTER is not defined."
 #endif
-
 
 #ifdef SWIGCSHARP
 // make swig generated classes partial in order to put thim layer classes as partial of it.
@@ -95,7 +90,6 @@ IGNORE_FUNCTION _wcsdup;
 %shared_ptr(CNTK::NDShape);
 %shared_ptr(CNTK::NDArrayView);
 %shared_ptr(CNTK::NDMask);
-
 %shared_ptr(std::vector<float>);
 
 // temaplate definitions
@@ -170,6 +164,10 @@ SWIG_STD_VECTOR_ENHANCED(CNTK::Learner)
 // It seems that SWIG does not understand %$isstruct.
 #define IGNORE_STRUCT %rename("$ignore", fullname=1)
 #define IGNORE_ENUM_CLASS %rename("$ignore", fullname=1)
+
+#ifndef _MSC_VER
+IGNORE_FUNCTION _wcsdup;
+#endif
 
 IGNORE_CLASS CNTK::Variable::CompositeFunction;
 IGNORE_CLASS CNTK::Varaiable::PrimitiveFunction;
@@ -266,7 +264,6 @@ IGNORE_FUNCTION CNTK::Internal::Convolution;
 IGNORE_FUNCTION CNTK::Internal::SaveAsLegacyModel;
 IGNORE_FUNCTION CNTK::Internal::AddProgressWriters;
 IGNORE_FUNCTION CNTK::Internal::NewUniqueId;
-
 IGNORE_FUNCTION CNTK::Internal::EnableReversingTensorShapesInErrorMessages;
 IGNORE_FUNCTION CNTK::Internal::IsReversingTensorShapesInErrorMessagesEnabled;
 IGNORE_FUNCTION CNTK::Internal::AlwaysAllowSettingDefaultDevice;
@@ -299,7 +296,6 @@ IGNORE_FUNCTION CNTK::Internal::PrintBuiltInfo;
 IGNORE_FUNCTION CNTK::Internal::PrintGpuInfo;
 IGNORE_FUNCTION CNTK::Internal::DefaultPackThresholdSizeInBytes;
 IGNORE_FUNCTION CNTK::Internal::ToDictionary;
-
 IGNORE_CLASS CNTK::Internal::TensorBoardFileWriter;
 // suppress SWIG warning 302: Identifier redefined.
 %ignore CNTK::Internal::TensorBoardFileWriter::TensorBoardFileWriter(const std::wstring& dir, const ::Microsoft::MSR::CNTK::ComputationNetworkPtr& modelToVisualize = nullptr);
@@ -319,11 +315,7 @@ MAKE_GETTER(CNTK::DeviceDescriptor, Id);
 MAKE_GETTER(CNTK::DeviceDescriptor, CPUDevice);
 MAKE_GETTER(CNTK::DeviceDescriptor, Type);
 RENAME_AND_MAKE_PRIVATE(CNTK::DeviceDescriptor, AllDevices);
-
-
-
 MAKE_GETTER(CNTK::Axis, Name);
-
 
 // class Function
 IGNORE_FUNCTION CNTK::Function::BlockArgumentsMapping;
@@ -347,9 +339,6 @@ RENAME_AND_MAKE_PRIVATE(CNTK::Function, Outputs);
 RENAME_AND_MAKE_PRIVATE(CNTK::Function, Arguments);
 RENAME_AND_MAKE_PRIVATE(CNTK::Function, FindAllWithName);
 RENAME_AND_MAKE_PRIVATE(CNTK::Function, Parameters);
-
-
-// Customize type mapping for modelBuffer, used by Load
 
 %rename ("%s") CNTK::Variable::Variable(const FunctionPtr& function);
 
@@ -795,4 +784,3 @@ RENAME_AND_MAKE_PRIVATE(CNTK::NDArrayView, RandomUniformDouble);
 #endif
 
 %include "CNTKValueExtend.i"
-

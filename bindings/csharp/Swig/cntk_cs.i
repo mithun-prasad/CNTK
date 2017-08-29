@@ -142,6 +142,8 @@
 %include "CNTKLibraryInternals.h"
 %include "CNTKLibrary.h"
 
+%template(TrainingParameterScheduleDouble) CNTK::TrainingParameterSchedule<double>;
+
 // Here is the explanation of why we have to put MomentumAsTimeConstantScheduleCS
 // in a different file (other than in CNTKLibrary.h) and do things in the following order:
 // In order to keep class hierarchy of Swig generated MomentumAsTimeConstantScheduleCS class,
@@ -151,8 +153,6 @@
 // before %template instantiation, MomentumAsTimeConstantScheduleCS will be generated
 // without TrainingParameterScheduleDouble being its base class - because TrainingParameterScheduleDouble
 // is not created yet.
-%template(TrainingParameterScheduleDouble) CNTK::TrainingParameterSchedule<double>;
-
 %template(TrainingParameterPerSampleScheduleDouble) CNTK::TrainingParameterPerUnitSchedule<double, CNTK::TrainingParameterSchedule<double>::UnitType::Sample>;
 
 %include "MomentumAsTimeConstantScheduleCS.h"

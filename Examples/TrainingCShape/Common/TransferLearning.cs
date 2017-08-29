@@ -157,7 +157,6 @@ namespace CNTK.CSTrainingExamples
                         { labelInput, labelBatch } }, device);
                     TestHelper.PrintTrainingProgress(trainer, epoch, 1);
                 }
-
             }
             transferLearningModel.Save(animalsModelFile);
 

@@ -55,14 +55,14 @@
     <Compile Include="..\Common\CifarResNetClassifier.cs">
       <Link>CifarResNetClassifier.cs</Link>
     </Compile>
-    <Compile Include="..\Common\Layers.cs">
-      <Link>Layers.cs</Link>
-    </Compile>
     <Compile Include="..\Common\LSTMSequenceClassifier.cs">
       <Link>LSTMSequenceClassifier.cs</Link>
     </Compile>
     <Compile Include="..\Common\MNISTClassifier.cs">
       <Link>MNISTClassifier.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Sequential.cs">
+      <Link>Sequential.cs</Link>
     </Compile>
     <Compile Include="..\Common\TestHelper.cs">
       <Link>TestHelper.cs</Link>

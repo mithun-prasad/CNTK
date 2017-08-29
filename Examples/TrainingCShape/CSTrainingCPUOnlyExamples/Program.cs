@@ -28,7 +28,7 @@ namespace CNTK.CSTrainingExamples
             //Console.WriteLine("======== runing TransferLearning.TrainAndEvaluateWithAnimalData using CPU ========");
             //TransferLearning.TrainAndEvaluateWithAnimalData(device, true);
 
-            Console.WriteLine($"======== runing CifarResNet.Train using {device.Type} ========");
+            Console.WriteLine($"======== runing LSTMSequenceClassifier.Train using {device.Type} ========");
             LSTMSequenceClassifier.Train(device, true);
         }
     }
