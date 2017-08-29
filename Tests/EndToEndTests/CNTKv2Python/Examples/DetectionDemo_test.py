@@ -42,7 +42,7 @@ def test_detection_demo(device_id):
     cfg["CNTK"].MAKE_MODE = False
     cfg["CNTK"].FAST_MODE = True
     cfg["CNTK"].TRAIN_E2E = True
-    cfg.USE_GPU_NMS = True
+    cfg.USE_GPU_NMS = False
     cfg.VISUALIZE_RESULTS = False
     cfg["DATA"].MAP_FILE_PATH = grocery_path
 
