@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,5 +94,31 @@ namespace CNTK.CSTrainingExamples
                 new List<Learner>() { Learner.SGDLearner(imageClassifier.Parameters,
                 new CNTK.TrainingParameterScheduleDouble(0.003125, TrainingParameterScheduleDouble.UnitType.Sample))});
         }
+
+        //class MnistInstance
+        //{
+        //    [Dim(28, 28)]
+        //    float[,] Img { get; set; }
+        //}
+        //class MnistLabel
+        //{
+        //    [Dim(10)]
+        //    float[] Lbl { get; set; }
+        //}
+
+        //void Example2()
+        //{
+        //    // streams are the usual way to move stuff around
+        //    var stream = File.Open("C:\foo.bin");
+
+        //    // this will fail if the model does not match input-ouputs
+        //    // async loading
+        //    var model = Model.Load<MnistInstance, MnistLabel>(stream);
+
+        //var v = new MnistInstance();
+
+        //    // async execution
+        //var label = model.Run(v); // MnistLabel
+        //}
     }
 }

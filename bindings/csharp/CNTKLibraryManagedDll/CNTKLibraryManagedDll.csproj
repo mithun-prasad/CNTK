@@ -73,6 +73,7 @@
     <Compile Include="ShimApiClasses\ValueShim.cs" />
     <Compile Include="ShimApiClasses\VariableShim.cs" />
     <Compile Include="SwigProxyClasses\AdditionalLearningOptions.cs" />
+    <Compile Include="SwigProxyClasses\CharVector.cs" />
     <Compile Include="SwigProxyClasses\CNTKDictionary.cs" />
     <Compile Include="SwigProxyClasses\Constant.cs" />
     <Compile Include="SwigProxyClasses\ConstantVector.cs" />

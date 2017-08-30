@@ -235,6 +235,18 @@ namespace CNTK
             return funcPtrList;
         }
 
+        public void Save(char[] buffer)
+        {
+            CharVector vectorBuf = new CharVector(); 
+            this._Save(vectorBuf);
+            vectorBuf.CopyTo(buffer);
+        }
+
+        public void Save(string filepath)
+        {
+            this._Save(filepath);
+        }
+
         /// <summary>
         /// Loads a model from file.
         /// </summary>

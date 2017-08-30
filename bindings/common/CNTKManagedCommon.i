@@ -94,7 +94,7 @@
 
 // temaplate definitions
 #ifdef SWIGCSHARP
-// int/bool/double/float are already enabled with SWIG_STD_VECTOR_ENHANCED in std_vector.i
+// char/int/bool/double/float are already enabled with SWIG_STD_VECTOR_ENHANCED in std_vector.i
 SWIG_STD_VECTOR_ENHANCED(size_t)
 SWIG_STD_VECTOR_ENHANCED(std::shared_ptr<CNTK::NDArrayView>)
 SWIG_STD_VECTOR_ENHANCED(CNTK::Variable)
@@ -106,6 +106,7 @@ SWIG_STD_VECTOR_ENHANCED(CNTK::ProgressWriter)
 SWIG_STD_VECTOR_ENHANCED(CNTK::Learner)
 #endif //SWIGCSHARP
 
+%template(CharVector) std::vector<char>;
 %template(IntVector) std::vector<int>;
 %template(SizeTVector) std::vector<size_t>;
 %template(DoubleVector) std::vector<double>;
@@ -717,6 +718,7 @@ RENAME_AND_MAKE_PRIVATE(CNTK::Function, IsComposite);
 RENAME_AND_MAKE_PRIVATE(CNTK::Function, IsPrimitive);
 RENAME_AND_MAKE_PRIVATE(CNTK::Function, IsBlock);
 RENAME_AND_MAKE_PRIVATE(CNTK::Function, Load);
+RENAME_AND_MAKE_PRIVATE(CNTK::Function, Save);
 RENAME_AND_MAKE_PRIVATE(CNTK::Function, Clone);
 RENAME_AND_MAKE_PRIVATE(CNTK::Function, Evaluate);
 RENAME_AND_MAKE_PRIVATE(CNTK::Function, FindByName);
