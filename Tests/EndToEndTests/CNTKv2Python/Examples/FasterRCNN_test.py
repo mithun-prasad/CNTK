@@ -32,6 +32,9 @@ win35_linux34 = pytest.mark.skipif(not ((sys.platform == 'win32' and sys.version
                                         (sys.platform != 'win32' and sys.version_info[:2] == (3,4))),
                                    reason="it runs currently only in windows-py35 and linux-py34 due to precompiled cython modules")
 
+linux34 = pytest.mark.skipif(not ((sys.platform != 'win32' and sys.version_info[:2] == (3,4))),
+                                   reason="it runs currently only in windows-py35 and linux-py34 due to precompiled cython modules")
+
 def run_fasterrcnn_grocery_training(device_id, e2e):
     from FasterRCNN_eval import compute_test_set_aps
     from utils.config_helpers import merge_configs
@@ -50,7 +53,7 @@ def run_fasterrcnn_grocery_training(device_id, e2e):
     cfg.IMAGE_WIDTH = 400
     cfg.IMAGE_HEIGHT = 400
     cfg["CNTK"].TRAIN_E2E = e2e
-    cfg.USE_GPU_NMS = True
+    cfg.USE_GPU_NMS = False
     cfg.VISUALIZE_RESULTS = False
     cfg["DATA"].MAP_FILE_PATH = grocery_path
 
@@ -73,6 +76,8 @@ def run_fasterrcnn_grocery_training(device_id, e2e):
     assert meanAP > 0.01
     return trained_model, meanAP, cfg
 
+# optionally: restrict test to linux since dphaim windows machines yield Cuda Error 77
+# @linux34
 @win35_linux34
 def reenable_once_sorting_is_stable_test_native_fasterrcnn_eval(tmpdir, device_id):
     from FasterRCNN_eval import compute_test_set_aps
@@ -97,10 +102,14 @@ def reenable_once_sorting_is_stable_test_native_fasterrcnn_eval(tmpdir, device_i
     print("Python: {}, native: {}".format(meanAP_python, meanAP_native))
     assert abs(meanAP_python - meanAP_native) < 0.1
 
+# optionally: restrict test to linux since dphaim windows machines yield Cuda Error 77
+# @linux34
 @win35_linux34
 def test_fasterrcnn_grocery_training_e2e(device_id):
     _, _, _ = run_fasterrcnn_grocery_training(device_id, e2e = True)
 
+# optionally: restrict test to linux since dphaim windows machines yield Cuda Error 77
+# @linux34
 @win35_linux34
 def test_fasterrcnn_grocery_training_4stage(device_id):
     _, _, _ = run_fasterrcnn_grocery_training(device_id, e2e = False)

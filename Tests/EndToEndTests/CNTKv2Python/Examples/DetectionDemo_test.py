@@ -24,6 +24,11 @@ win35_linux34 = pytest.mark.skipif(not ((sys.platform == 'win32' and sys.version
                                         (sys.platform != 'win32' and sys.version_info[:2] == (3,4))),
                                    reason="it runs currently only in windows-py35 and linux-py34 due to precompiled cython modules")
 
+linux34 = pytest.mark.skipif(not ((sys.platform != 'win32' and sys.version_info[:2] == (3,4))),
+                                   reason="it runs currently only in windows-py35 and linux-py34 due to precompiled cython modules")
+
+# optionally: restrict test to linux since dphaim windows machines yield Cuda Error 77
+# @linux34
 @win35_linux34
 def test_detection_demo(device_id):
     from prepare_test_data import prepare_Grocery_data, prepare_alexnet_v0_model
