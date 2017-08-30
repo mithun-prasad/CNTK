@@ -32,13 +32,12 @@ win35_linux34 = pytest.mark.skipif(not ((sys.platform == 'win32' and sys.version
                                         (sys.platform != 'win32' and sys.version_info[:2] == (3,4))),
                                    reason="it runs currently only in windows-py35 and linux-py34 due to precompiled cython modules")
 
-linux34 = pytest.mark.skipif(not ((sys.platform != 'win32' and sys.version_info[:2] == (3,4))),
-                                   reason="it runs currently only in windows-py35 and linux-py34 due to precompiled cython modules")
-
-# optionally: restrict test to linux since dphaim windows machines yield Cuda Error 77
-# @linux34
 @win35_linux34
 def test_fastrcnnpy_grocery_training(device_id):
+    if cntk_device(device_id).type() != DeviceKind_GPU:
+        pytest.skip('test only runs on GPU')  # it runs very slow in CPU
+    try_set_default_device(cntk_device(device_id))
+
     from utils.config_helpers import merge_configs
     from FastRCNN_config import cfg as detector_cfg
     from utils.configs.AlexNet_config import cfg as network_cfg
@@ -67,10 +66,6 @@ def test_fastrcnnpy_grocery_training(device_id):
     from FastRCNN_train import prepare, train_fast_rcnn
     from FastRCNN_eval import compute_test_set_aps
     prepare(cfg, False)
-
-    if cntk_device(device_id).type() != DeviceKind_GPU:
-        pytest.skip('test only runs on GPU')  # it runs very slow in CPU
-    try_set_default_device(cntk_device(device_id))
 
     np.random.seed(seed=3)
     trained_model = train_fast_rcnn(cfg)

@@ -32,10 +32,7 @@ win35_linux34 = pytest.mark.skipif(not ((sys.platform == 'win32' and sys.version
                                         (sys.platform != 'win32' and sys.version_info[:2] == (3,4))),
                                    reason="it runs currently only in windows-py35 and linux-py34 due to precompiled cython modules")
 
-linux34 = pytest.mark.skipif(not ((sys.platform != 'win32' and sys.version_info[:2] == (3,4))),
-                                   reason="it runs currently only in windows-py35 and linux-py34 due to precompiled cython modules")
-
-def run_fasterrcnn_grocery_training(device_id, e2e):
+def run_fasterrcnn_grocery_training(e2e):
     from FasterRCNN_eval import compute_test_set_aps
     from utils.config_helpers import merge_configs
     from FasterRCNN_config import cfg as detector_cfg
@@ -76,16 +73,14 @@ def run_fasterrcnn_grocery_training(device_id, e2e):
     assert meanAP > 0.01
     return trained_model, meanAP, cfg
 
-# optionally: restrict test to linux since dphaim windows machines yield Cuda Error 77
-# @linux34
 @win35_linux34
-def reenable_once_sorting_is_stable_test_native_fasterrcnn_eval(tmpdir, device_id):
-    from FasterRCNN_eval import compute_test_set_aps
+def reenable_once_sorting_is_stable_test_native_fasterrcnn_eval(device_id):
     if cntk_device(device_id).type() != DeviceKind_GPU:
         pytest.skip('test only runs on GPU')  # it runs very slow in CPU
     try_set_default_device(cntk_device(device_id))
 
-    eval_model, meanAP_python, cfg = run_fasterrcnn_grocery_training(0, True)
+    from FasterRCNN_eval import compute_test_set_aps
+    eval_model, meanAP_python, cfg = run_fasterrcnn_grocery_training(True)
 
     cntk_py.always_allow_setting_default_device()
     try_set_default_device(cpu())
@@ -102,14 +97,14 @@ def reenable_once_sorting_is_stable_test_native_fasterrcnn_eval(tmpdir, device_i
     print("Python: {}, native: {}".format(meanAP_python, meanAP_native))
     assert abs(meanAP_python - meanAP_native) < 0.1
 
-# optionally: restrict test to linux since dphaim windows machines yield Cuda Error 77
-# @linux34
 @win35_linux34
 def test_fasterrcnn_grocery_training_e2e(device_id):
-    _, _, _ = run_fasterrcnn_grocery_training(device_id, e2e = True)
+    try_set_default_device(cntk_device(device_id))
+    _, _, _ = run_fasterrcnn_grocery_training(e2e = True)
 
-# optionally: restrict test to linux since dphaim windows machines yield Cuda Error 77
-# @linux34
 @win35_linux34
 def test_fasterrcnn_grocery_training_4stage(device_id):
-    _, _, _ = run_fasterrcnn_grocery_training(device_id, e2e = False)
+    if cntk_device(device_id).type() != DeviceKind_GPU:
+        pytest.skip('test only runs on GPU')  # it runs very slow in CPU
+    try_set_default_device(cntk_device(device_id))
+    _, _, _ = run_fasterrcnn_grocery_training(e2e = False)
