@@ -20,7 +20,7 @@ namespace CNTK
         {
             if (numAxes < 0 || dimension < 0)
             {
-                throw new ArgumentException("The paraemter numAxes or dimension should not be a negative value");
+                throw new ArgumentException("The parameter numAxes or dimension should not be a negative value");
             }
         }
 
@@ -32,7 +32,7 @@ namespace CNTK
         {
             if (numAxes < 0)
             {
-                throw new ArgumentException("The paraemter numAxes should not be a negative value");
+                throw new ArgumentException("The parameter numAxes should not be a negative value");
             }
         }
 
@@ -130,7 +130,7 @@ namespace CNTK
         {
             if (beginAxisId < 0 || endAxisId < 0)
             {
-                throw new ArgumentException("The paraemter beginAxisId or endAxisId should not be a negative value");
+                throw new ArgumentException("The parameter beginAxisId or endAxisId should not be a negative value");
             }
             return _SubShape((uint)beginAxisId, (uint)endAxisId);
         }
@@ -144,7 +144,7 @@ namespace CNTK
         {
             if (beginAxisId < 0)
             {
-                throw new ArgumentException("The paraemter beginAxisId should not be a negative value");
+                throw new ArgumentException("The parameter beginAxisId should not be a negative value");
             }
             return _SubShape((uint)beginAxisId);
         }
@@ -161,7 +161,7 @@ namespace CNTK
             {
                 if (element < 0 && !IsSpecialDimensionValues(element))
                 {
-                    throw new ArgumentException("The paraemter diemnsions cannot contain a negative value");
+                    throw new ArgumentException("The parameter diemnsions cannot contain a negative value");
                 }
                 CSharp_SizeTVector_AddExt(dimVector, DimConvertCSToCPP(element));
             }

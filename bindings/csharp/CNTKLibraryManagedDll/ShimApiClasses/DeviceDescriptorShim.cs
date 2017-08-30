@@ -44,7 +44,7 @@ namespace CNTK
         {
             if (deviceId < 0)
             {
-                throw new ArgumentException("The paraemter deviceId should not be a negative value");
+                throw new ArgumentException("The parameter deviceId should not be a negative value");
             }
             return _GPUDevice((uint)deviceId);
         }
